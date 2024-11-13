@@ -30,4 +30,13 @@ class LeadService
             throw $th; //handle error someother way
         }
     }
+
+    public function show($id){
+        try {
+            $lead = Lead::findOrFail($id);
+            return new LeadResource($lead);
+        } catch (\Throwable $th) {
+            throw $th; //handle error someother way
+        }
+    }
 }
