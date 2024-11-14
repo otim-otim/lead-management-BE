@@ -9,9 +9,9 @@ use App\Enums\FollowUpStatusEnum;
 class FollowUpUpdateDTO
 {
     public function __construct(
-        public ?string $user_id,
-        public ?DateTime $scheduled_at,
-        public ?FollowUpStatusEnum  $status
+        public ?string $user_id = null,
+        public ?DateTime $scheduled_at = null,
+        public ?FollowUpStatusEnum  $status = null
 
     ) {
 
