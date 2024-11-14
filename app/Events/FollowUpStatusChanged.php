@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
+use App\Enums\FollowUpStatusEnum;
 
 class FollowUpStatusChanged implements ShouldBroadcast
 {
@@ -21,7 +22,7 @@ class FollowUpStatusChanged implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(FollowUp $followUp, string $oldStatus, string $newStatus)
+    public function __construct(FollowUp $followUp, FollowUpStatusEnum $oldStatus, FollowUpStatusEnum $newStatus)
     {
         $this->followUp = $followUp;
         $this->oldStatus = $oldStatus;
