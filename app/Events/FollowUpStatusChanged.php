@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\FollowUpResource;
 use App\Models\FollowUp;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -22,7 +23,7 @@ class FollowUpStatusChanged implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(FollowUp $followUp, FollowUpStatusEnum $oldStatus, FollowUpStatusEnum $newStatus)
+    public function __construct(FollowUpResource $followUp, FollowUpStatusEnum $oldStatus, FollowUpStatusEnum $newStatus)
     {
         $this->followUp = $followUp;
         $this->oldStatus = $oldStatus;
@@ -34,6 +35,7 @@ class FollowUpStatusChanged implements ShouldBroadcast
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel("follow-up-updates.{$this->followUp->id}");
+        $followUpModel = $this->followUp->resource;
+        return new PrivateChannel("follow-up-updates.{$followUpModel->id}");
     }
 }

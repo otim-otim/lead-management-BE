@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\FollowUp;
 use App\Enums\FollowUpStatusEnum;
 use App\Events\FollowUpStatusChanged;
+use App\Http\Resources\FollowUpResource;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -31,7 +32,7 @@ class FollowUpMissedJob implements ShouldQueue
             $old_status = $follow_up->status;
             $follow_up->status = FollowUpStatusEnum::MISSED->value;
             $follow_up->save();
-            event(new FollowUpStatusChanged($follow_up,$old_status,FollowUpStatusEnum::MISSED->value));
+            event(new FollowUpStatusChanged(new FollowUpResource($follow_up),$old_status,FollowUpStatusEnum::MISSED->value));
         }
     }
 }
