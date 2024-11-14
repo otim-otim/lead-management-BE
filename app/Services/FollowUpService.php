@@ -33,7 +33,7 @@ class FollowUpService
 
     public function show($id){
         try {
-            $followup = FollowUp::find($id);
+            $followup = FollowUp::findOrFail($id);
             return new FollowUpResource($followup);
         } catch (\Throwable $th) {
             throw $th;
