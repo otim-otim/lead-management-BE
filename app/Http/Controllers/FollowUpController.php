@@ -102,11 +102,31 @@ class FollowUpController extends Controller
             ]);
             $dto = FollowUpUpdateDTO::fromRequest($request);
             $follow_up = $this->followUpService->update($dto,$id);
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $follow_up
             ],200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], $th->getCode());
+        }
+    }
+
+    public function updateFollowUpStatus($id, FollowUpStatusEnum $status)
+    {
+        try {
+            $dto = new FollowUpUpdateDTO(null, null, $status);
+            $followup = $this->followUpService->update($dto,$id);
+            return response()->json([
+                'success' => true,
+                'message' => 'FollowUp status updated successfully',
+                'data' => $followup
+                
+            ]);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json([
