@@ -47,9 +47,9 @@ class FollowUpController extends Controller
     {
         try {
             $validated = $request->validate([
-                'lead_id' => ['required',Rule::exists('leads','id')],
-                'user_id' => ['required',Rule::exists('users','id')],
-                'scheduled_at' => ['required','date:Y-m-d','after:today',],
+                'leadId' => ['required',Rule::exists('leads','id')],
+                'userId' => ['required',Rule::exists('users','id')],
+                'scheduleAt' => ['required','date:Y-m-d','after:today',],
             ]);
 
             $dto = FollowUpCreateDTO::fromRequest($request);
@@ -63,7 +63,7 @@ class FollowUpController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
-            ], $th->getCode());
+            ]);
         }
     }
 
@@ -83,7 +83,7 @@ class FollowUpController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
-            ], $th->getCode());
+            ]);
         }
     }
 
@@ -96,8 +96,8 @@ class FollowUpController extends Controller
     {
         try {
             $validated = $request->validate([
-                'user_id' => ['nullable', Rule::exists('users', 'id')],
-                'scheduled_at' => ['nullable', 'date:Y-m-d', 'after:today'],
+                'userId' => ['nullable', Rule::exists('users', 'id')],
+                'scheduleAt' => ['nullable', 'date:Y-m-d', 'after:today'],
                 'status' => ['nullable', Rule::in(FollowUpStatusEnum::toArray())] 
             ]);
             $dto = FollowUpUpdateDTO::fromRequest($request);
