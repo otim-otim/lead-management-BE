@@ -21,7 +21,7 @@ class FollowUpUpdateDTO
     {
         return new self(
             $request->input('userId') ?? null,
-            $request->input('scheduleDate') ?? null,
+            $request->input('scheduleAt') ?? null,
             $request->input('status') ?? null
         );
     }

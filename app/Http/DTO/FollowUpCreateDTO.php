@@ -4,13 +4,14 @@ namespace App\Http\DTO;
 
 use DateTime;
 use Illuminate\Http\Request;
+use App\Enums\FollowUpStatusEnum;
 
 class FollowUpCreateDTO
 {
     public function __construct(
         public string $lead_id,
         public string $user_id,
-        public DateTime $scheduled_at
+        public string $scheduled_at
 
     ) {
 
@@ -21,7 +22,7 @@ class FollowUpCreateDTO
         return new self(
             $request->input('leadId'),
             $request->input('userId'),
-            $request->input('scheduleDate'),
+            $request->input('scheduleAt'),
         );
     }
 
@@ -31,6 +32,7 @@ class FollowUpCreateDTO
             'lead_id' => $this->lead_id,
             'user_id' => $this->user_id,
             'scheduled_at' => $this->scheduled_at,
+            'status' => FollowUpStatusEnum::PENDING
         ];
 
         return array_filter($data, function ($value) {
