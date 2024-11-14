@@ -34,6 +34,6 @@ class FollowUpStatusChanged implements ShouldBroadcast
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel('follow-up-updates');
+        return new PrivateChannel("follow-up-updates.{$this->followUp->id}");
     }
 }
