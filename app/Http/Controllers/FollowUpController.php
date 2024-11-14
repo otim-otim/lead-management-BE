@@ -67,18 +67,24 @@ class FollowUpController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FollowUp $followUp)
+    public function show($id)
     {
-        //
+        try {
+            $follow_up = $this->followUpService->show($id);
+            return response()->json([
+                'success' => true,
+                'data' => $follow_up
+            ],200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], $th->getCode());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FollowUp $followUp)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
