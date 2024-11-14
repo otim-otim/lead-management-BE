@@ -16,13 +16,14 @@ class FollowUpResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
+        // dd($this->status);
         return [
             'id' => $this->id,
-            'lead_id' => new LeadResource($this->lead), 
-            'user_id' => new UserResource($this->user), 
             'scheduledAt' => Carbon::parse($this->scheduled_at)->format('Y-m-d H:i:s'), 
             'status' => $this->status,
             'createdAt' => $this->created_at,
+            'lead' => new LeadResource($this->lead), 
+            'user' => new UserResource($this->user), 
         ];
     }
 }
