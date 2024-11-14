@@ -120,7 +120,7 @@ class FollowUpController extends Controller
     {
         try {
             $dto = new FollowUpUpdateDTO(null, null, $status);
-            $followup = $this->followUpService->update($dto,$id);
+            $followup = $this->followUpService->updateFollowUpStatus($dto,$id);
             return response()->json([
                 'success' => true,
                 'message' => 'FollowUp status updated successfully',
