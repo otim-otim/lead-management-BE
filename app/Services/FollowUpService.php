@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\FollowUpStatusChanged;
 use App\Models\Lead;
 use App\Models\FollowUp;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +45,17 @@ class FollowUpService
             $followup = FollowUp::findOrFail($id);
             $followup->update($dto->toArray());
             return new FollowUpResource($followup);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function updateFollowUpStatus(FollowUpUpdateDTO $dto, $id){
+        try {
+            $followup = $this->update($dto, $id);
+            if($followup)
+                event(new FollowUpStatusChanged($followup,$dto->status ,$followup->status));
+            return $followup;
         } catch (\Throwable $th) {
             throw $th;
         }
