@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id',)->constrained('users',)->onDelete('cascade');
             $table->foreignId('lead_id')->constrained('leads',)->onDelete('cascade');
             $table->timestamp('scheduled_at');
-            $table->enum('status', FollowUpStatusEnum::toArray())->default(FollowUpStatusEnum::PENDING->name);
+            $table->enum('status', FollowUpStatusEnum::toArray())->default(FollowUpStatusEnum::PENDING->value);
             $table->timestamps();
         });
     }

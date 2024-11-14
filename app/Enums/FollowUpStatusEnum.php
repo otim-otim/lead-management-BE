@@ -2,15 +2,15 @@
 
 namespace App\Enums;
 
-enum FollowUpStatusEnum
+enum FollowUpStatusEnum:string
 {
-    case PENDING;
-    case COMPLETED;
-    case MISSED;
+    case PENDING = 'Pending';
+    case COMPLETED = 'Completed';
+    case MISSED = 'Missed';
    
 
     public static function toArray(): array
     {
-        return array_map(fn($case) => $case->name, self::cases());
+        return array_map(fn($case) => $case->value, self::cases());
     }
 }
