@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/followups', [FollowUpController::class, 'store']);
     Route::get('/followups/{id}', [FollowUpController::class, 'show']);
     Route::get('/followups', [FollowUpController::class, 'index']);
-    Route::patch('/followups/{id}/{status}', [FollowUpController::class, 'updateFollowUpStatus']);
+    Route::patch('/followups/{id}/{status}', [FollowUpController::class, 'updateFollowUpStatus'])->middleware('senior-user');
 
 
     
