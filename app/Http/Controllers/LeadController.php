@@ -29,7 +29,7 @@ class LeadController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
-            ],$th->getCode());
+            ]);
         }
     }
 
@@ -60,7 +60,7 @@ class LeadController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
-            ], $th->getCode());
+            ]);
 
         }
     }
@@ -82,7 +82,7 @@ class LeadController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
-            ],$th->getCode());
+            ]);
         }
     }
 
