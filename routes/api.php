@@ -6,6 +6,7 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\FollowUpController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -35,6 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/followups', [FollowUpController::class, 'index']);
     Route::patch('/followups/{id}/{status}', [FollowUpController::class, 'updateFollowUpStatus'])->middleware('senior-user');
 
-
+    Route::get('/users',[UserController::class, 'index']);
     
 });
