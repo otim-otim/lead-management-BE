@@ -26,6 +26,6 @@ class CheckMissedFollowUpCommand extends Command
      */
     public function handle()
     {
-        dispatch(new FollowUpMissedJob())->every(5);
+        dispatch(new FollowUpMissedJob());
     }
 }

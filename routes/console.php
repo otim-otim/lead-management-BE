@@ -14,4 +14,4 @@ Artisan::command('inspire', function () {
 
 
 
-Schedule::command('app:check-missed-follow-up-command')->every15Minutes();
+Schedule::command('app:check-missed-follow-up-command')->everyFiveMinutes();

@@ -23,7 +23,7 @@ class FollowUpStatusChanged implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(FollowUpResource $followUp, FollowUpStatusEnum $oldStatus, FollowUpStatusEnum $newStatus)
+    public function __construct(FollowUpResource $followUp, FollowUpStatusEnum $oldStatus, string $newStatus)
     {
         $this->followUp = $followUp;
         $this->oldStatus = $oldStatus;
