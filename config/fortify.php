@@ -155,9 +155,9 @@ return [
         //     // 'window' => 0,
         // ]),
 
-        Features::registration(),
-        Features::resetPasswords(),
-        Features::emailVerification(),
+        // Features::registration(),
+        // Features::resetPasswords(),
+        // Features::emailVerification(),
     ],
 
 ];
