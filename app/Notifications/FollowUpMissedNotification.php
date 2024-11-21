@@ -5,20 +5,22 @@ namespace App\Notifications;
 use App\Models\FollowUp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class FollowUpMissedNotification extends Notification
 {
     use Queueable;
 
-    // protected $followUp;
+    public Lead $lead ;
+    public User $user ;    
 
     /**
      * Create a new notification instance.
      */
     public function __construct(public FollowUp $followUp)
     {
-        // $this->followUp = $followUp;
+        $this->lead = $followUp->lead;
+        $this->user = $followUp->user;
     }
 
     /**
@@ -26,18 +28,37 @@ class FollowUpMissedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail']; // Choose your preferred channels, e.g., 'mail', 'database', etc.
+        return ['broadcast', 'database']; // Adding database to persist notifications
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the broadcastable representation of the notification.
      */
-    public function toMail($notifiable)
+    public function toBroadcast($notifiable)
     {
-        return (new MailMessage)
-                    ->subject('Follow-Up Status Marked as Missed')
-                    ->line('The follow-up for '.$this->followUp->title.' has been marked as missed.')
-                    ->action('View Follow-Up', url('/follow-ups/'.$this->followUp->id))
-                    ->line('Please take appropriate action.');
+        
+        return new BroadcastMessage([
+            'id' => $this->id,
+            'type' => 'followup_missed',
+            'data' => [
+                'followup_id' => $this->followUp->id,
+                'title' => 'followup missed',
+                'message' => 'The follow-up for '.$this->lead->name.' has been missed.',
+                'action_url' => '/follow-ups/'.$this->followUp->id,
+                'created_at' => now()->toISOString(),
+            ]
+        ]);
+    }
+
+    /**
+     * Get the array representation of the notification.
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'title' => 'followup missed',
+            'message' => 'The follow-up for '.$this->lead->name.' has been missed.',
+            'action_url' => '/follow-ups/'.$this->followUp->id,
+        ];
     }
 }
